@@ -3,18 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeTodo, updateTodo } from '../features/todo/todoSlice';
 
 function Todos() {
-  const todos = useSelector(state => state.todos);
+  const todos = useSelector(state => state.todo.todos); 
   const dispatch = useDispatch();
 
   const [editId, setEditId] = useState(null);
   const [editText, setEditText] = useState('');
 
-
   const handleEditClick = (id, currentText) => {
     setEditId(id);
     setEditText(currentText);
   };
-
 
   const handleUpdate = (id) => {
     if (editText.trim() !== '') {
@@ -23,6 +21,9 @@ function Todos() {
       setEditText('');
     }
   };
+
+
+ 
 
   return (
     <>
@@ -44,8 +45,6 @@ function Todos() {
               <div className="text-white">{todo.text}</div>
             )}
 
-
-
             <div className="flex gap-2">
               {/* Update Button */}
               {editId === todo.id ? (
@@ -55,10 +54,7 @@ function Todos() {
                 >
                   OK
                 </button>
-              ) : 
-              
-              
-              (
+              ) : (
                 <button
                   onClick={() => handleEditClick(todo.id, todo.text)}
                   className="text-white bg-indigo-500 py-1 px-3 rounded hover:bg-indigo-600"
